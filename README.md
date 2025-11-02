@@ -23,6 +23,7 @@ URL: http://localhost:8080/parking/status
 2. Allocate Parking Spot
 Method: POST
 URL: http://localhost:8080/parking/allocate
+
 Sample Request Body:
 
 {
