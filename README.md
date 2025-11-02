@@ -8,6 +8,7 @@ cd smart-parking-backend
 
 ##  create an .env file exactly like .env.example and give values to these 
 MONGO_URI=
+
 PORT=
 
 
