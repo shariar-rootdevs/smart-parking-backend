@@ -6,6 +6,11 @@ A simple and efficient backend system for managing smart parking operations.
 https://github.com/shariar-rootdevs/smart-parking-backend.git
 cd smart-parking-backend
 
+##  create an .env file exactly like .env.example and give values to these 
+MONGO_URI=
+PORT=
+
+
 ##  Install dependencies
 npm install
 
