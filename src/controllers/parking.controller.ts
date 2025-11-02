@@ -2,33 +2,25 @@ import { Request, Response } from 'express'
 import { ICustomer } from 'models/customer.model'
 import {
   allocateParkingSpot,
-  getBookedSpots,
-  getFreeParkingSpots,
+  getParkingStatus,
   releaseParkingSpot,
 } from '../services/parking.services'
 
 export const parkingStatus = async (req: Request, res: Response) => {
   try {
-    const freeSpots = await getFreeParkingSpots()
+    const status = await getParkingStatus()
+
     res.json({
-      totalFree: freeSpots.length,
-      freeSpots,
+      summary: {
+        totalSpots: status.totalSpots,
+        totalBooked: status.totalBooked,
+        totalFree: status.totalFree,
+      },
+      bookedSpots: status.booked,
+      freeSpots: status.free,
     })
   } catch (error) {
     console.error('Error fetching parking status:', error)
-    res.status(500).json({ error: 'Internal Server Error' })
-  }
-}
-
-export const bookedStatus = async (req: Request, res: Response) => {
-  try {
-    const booked = await getBookedSpots()
-    res.json({
-      totalBooked: booked.length,
-      booked,
-    })
-  } catch (error) {
-    console.error('Error fetching booked parking status:', error)
     res.status(500).json({ error: 'Internal Server Error' })
   }
 }

@@ -6,9 +6,25 @@ export const getFreeParkingSpots = async (): Promise<IParkingSpot[]> => {
   return freeSpots
 }
 
-export const getBookedSpots = async (): Promise<IParkingSpot[]> => {
-  const freeSpots: IParkingSpot[] = await (ParkingSpot as any).find({ isOccupied: true }).lean()
-  return freeSpots
+export const getParkingStatus = async (): Promise<{
+  totalSpots: number
+  totalBooked: number
+  totalFree: number
+  booked: IParkingSpot[]
+  free: IParkingSpot[]
+}> => {
+  const allSpots: IParkingSpot[] = await (ParkingSpot as any).find().lean()
+
+  const booked = allSpots.filter((spot) => spot.isOccupied)
+  const free = allSpots.filter((spot) => !spot.isOccupied)
+
+  return {
+    totalSpots: allSpots.length,
+    totalBooked: booked.length,
+    totalFree: free.length,
+    booked,
+    free,
+  }
 }
 
 // allcate parking
